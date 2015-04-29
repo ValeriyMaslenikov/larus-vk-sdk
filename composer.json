@@ -1,0 +1,14 @@
+{
+    "name": "valeriy.liquid/vk-sdk",
+    "description": "Client for social network: VK",
+    "require": {
+        "guzzlehttp/guzzle":"*"
+    },
+    "authors": [
+        {
+            "name": "ValeriyLiquid",
+            "email": "admin@warezon.ru"
+        }
+    ],
+    "minimum-stability": "stable"
+}
