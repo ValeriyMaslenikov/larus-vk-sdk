@@ -1,14 +1,36 @@
 {
-    "name": "valeriy.liquid/vk-sdk",
-    "description": "Client for social network: VK",
-    "require": {
-        "guzzlehttp/guzzle":"*"
-    },
-    "authors": [
-        {
-            "name": "ValeriyLiquid",
-            "email": "admin@warezon.ru"
-        }
-    ],
-    "minimum-stability": "stable"
+  "name": "valeriy.liquid/vk-larus-sdk",
+  "description": "PHP client for VK social network",
+  "keywords": [
+    "vk",
+    "sdk",
+    "api",
+    "curl",
+    "guzzle",
+    "vkontakte",
+    "php"
+  ],
+  "require": {
+    "guzzlehttp/guzzle": "*"
+  },
+  "require-dev": {
+    "phpspec/prophecy": "~1.0"
+  },
+  "authors": [
+    {
+      "name": "ValeriyLiquid",
+      "email": "admin@warezon.ru"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "LarusVK\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "LarusVK\\Tests\\": "tests/"
+    }
+  },
+  "minimum-stability": "stable"
 }
