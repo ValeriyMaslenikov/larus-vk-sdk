@@ -4,7 +4,7 @@ namespace LarusVK\Tests;
 
 use LarusVK\Client;
 use LarusVK\Credentials\CredentialsInterface;
-use LarusVK\Credentials\StandartCredentials;
+use LarusVK\Credentials\StandardCredentials;
 
 /**
  * Class ClientTest

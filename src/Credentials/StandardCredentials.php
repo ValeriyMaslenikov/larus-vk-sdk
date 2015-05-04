@@ -1,21 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Valeriy
- * Date: 30.04.2015
- * Time: 1:27
- */
 
 namespace LarusVK\Credentials;
 
 
-class StandartCredentials implements CredentialsInterface
+class StandardCredentials implements CredentialsInterface
 {
 
     const ACCESS_TOKEN_SIZE = 32;
 
     const MIN_SECRET_KEY_LENGTH = 6;
-    const MAX_SECRET_KEY_LENGTH = 128;
+    const MAX_SECRET_KEY_LENGTH = 32;
 
     /** @var  int */
     protected $application_id;
@@ -45,8 +39,9 @@ class StandartCredentials implements CredentialsInterface
 
         }
 
-
         $this->application_id = $application_id;
+
+        return $this;
     }
 
     /**
@@ -64,16 +59,14 @@ class StandartCredentials implements CredentialsInterface
     {
 
         if (
-            is_string($application_secret_key) &&
-            (
-                strlen($application_secret_key) >= self::MIN_SECRET_KEY_LENGTH ||
-                strlen($application_secret_key) <= self::MAX_SECRET_KEY_LENGTH
-            )
+            !is_string($application_secret_key) ||
+            strlen($application_secret_key) < self::MIN_SECRET_KEY_LENGTH ||
+            strlen($application_secret_key) > self::MAX_SECRET_KEY_LENGTH
         ) {
             throw new \InvalidArgumentException(
-                "Application secret key must be a string between" .
+                'Application secret key must be a string between ' .
                 self::MIN_SECRET_KEY_LENGTH . ' and ' . self::MAX_SECRET_KEY_LENGTH .
-                'characters'
+                ' characters'
             );
         }
 
@@ -112,7 +105,7 @@ class StandartCredentials implements CredentialsInterface
 
     public function hasAccessToken()
     {
-        return is_null($this->access_token);
+        return !is_null($this->access_token);
     }
 
 
