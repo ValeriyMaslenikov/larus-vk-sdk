@@ -25,15 +25,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->prophet->checkPredictions();
     }
 
-    /**
-     * @expectedException \PHPUnit_Framework_Error
-     */
-    public function testConstructorWithoutParameters()
-    {
-        $client = new Client();
-    }
-
-
     public function testConstructorWithContainer()
     {
         /** @var CredentialsInterface $credentials */
