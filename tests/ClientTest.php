@@ -2,7 +2,7 @@
 
 namespace LarusVK\Tests;
 
-use LarusVK\Client;
+use LarusVK\LarusClient;
 use LarusVK\Credentials\CredentialsInterface;
 use LarusVK\Credentials\StandardCredentials;
 
@@ -30,7 +30,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         /** @var CredentialsInterface $credentials */
         $credentials = $this->prophet->prophesize('\LarusVK\Credentials\CredentialsInterface')->reveal();
 
-        $client = new Client(
+        $client = new LarusClient(
             $credentials
         );
     }
