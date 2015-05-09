@@ -2,7 +2,7 @@
 
 namespace LarusVK\Tests;
 
-use LarusVK\Client;
+use LarusVK\LarusClient;
 use LarusVK\Credentials\CredentialsInterface;
 use LarusVK\Credentials\StandardCredentials;
 
@@ -25,12 +25,21 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->prophet->checkPredictions();
     }
 
+    /**
+     * @expectedException \PHPUnit_Framework_Error
+     */
+    public function testConstructorWithoutParameters()
+    {
+        $client = new LarusClient();
+    }
+
+
     public function testConstructorWithContainer()
     {
         /** @var CredentialsInterface $credentials */
         $credentials = $this->prophet->prophesize('\LarusVK\Credentials\CredentialsInterface')->reveal();
 
-        $client = new Client(
+        $client = new LarusClient(
             $credentials
         );
     }

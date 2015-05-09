@@ -2,9 +2,6 @@
 
 namespace LarusVK\Sections;
 
-use LarusVK\Fields\AbstractField;
-use LarusVK\Fields\FieldCollection;
-
 /**
  * Class UsersSection
  * @package LarusVK\Sections
@@ -12,4 +9,9 @@ use LarusVK\Fields\FieldCollection;
 class UsersSection extends AbstractSection
 {
 
+    const NAME = 'users';
+
+    protected $methods = [
+        'get' => '\\Sections\\Methods\\Users\\Get'
+    ];
 }

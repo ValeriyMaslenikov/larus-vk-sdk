@@ -13,7 +13,7 @@ use GuzzleHttp\ClientInterface;
 use LarusVK\Credentials\CredentialsInterface;
 use LarusVK\Sections\AbstractSection;
 
-class Client
+class LarusClient
 {
 
     const DEFAULT_CLIENT = '\GuzzleHttp\Client';
@@ -22,7 +22,7 @@ class Client
         'user' => 'LarusVK\\Sections\\UserSection'
     ];
 
-    /** @var CredentialsInterface  */
+    /** @var CredentialsInterface */
     protected $credentials;
     /** @var  ClientInterface */
     protected $client;
@@ -30,24 +30,33 @@ class Client
     public function __construct(CredentialsInterface $credentials, ClientInterface $client = NULL)
     {
         $this->credentials = $credentials;
-        $this->setClient($client);
-    }
 
-    public function setClient(ClientInterface $client = NULL)
-    {
-        if(is_null($client)) {
-            $class =  self::DEFAULT_CLIENT;
+        if (is_null($client)) {
+
+            $class = static::DEFAULT_CLIENT;
             $this->client = new $class;
+
         } else {
+
             $this->client = $client;
+
         }
 
-        return $this;
+    }
+
+    public function getClient()
+    {
+        return $this->client;
     }
 
     public function setSection($name, $value)
     {
         // TODO Create method implementation
+    }
+
+    public function getCredentials()
+    {
+        return $this->credentials;
     }
 
     /**
