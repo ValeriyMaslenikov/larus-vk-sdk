@@ -5,6 +5,7 @@ namespace LarusVK\Sections;
 /**
  * Class UsersSection
  * @package LarusVK\Sections
+ * @method get(array $params)
  */
 class UsersSection extends AbstractSection
 {
@@ -12,6 +13,7 @@ class UsersSection extends AbstractSection
     const NAME = 'users';
 
     protected $methods = [
-        'get' => '\\Sections\\Methods\\Users\\Get'
+        'get' => '\\LarusVK\\Sections\\Methods\\Users\\Get'
     ];
+
 }

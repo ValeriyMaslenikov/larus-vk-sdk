@@ -9,17 +9,23 @@
 namespace LarusVK;
 
 
+use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use LarusVK\Credentials\CredentialsInterface;
+use LarusVK\Credentials\NullCredentials;
 use LarusVK\Sections\AbstractSection;
+use LarusVK\Sections\UsersSection;
 
+/**
+ * Class LarusClient
+ * @package LarusVK
+ * @property UsersSection users
+ */
 class LarusClient
 {
 
-    const DEFAULT_CLIENT = '\GuzzleHttp\Client';
-
     protected $sections = [
-        'user' => 'LarusVK\\Sections\\UserSection'
+        'users' => '\\LarusVK\\Sections\\UsersSection'
     ];
 
     /** @var CredentialsInterface */
@@ -27,20 +33,16 @@ class LarusClient
     /** @var  ClientInterface */
     protected $client;
 
-    public function __construct(CredentialsInterface $credentials, ClientInterface $client = NULL)
+    public function __construct(CredentialsInterface $credentials = null, ClientInterface $client = null)
     {
-        $this->credentials = $credentials;
 
-        if (is_null($client)) {
+        $this->credentials = is_null($credentials) ?
+            new NullCredentials() :
+            $credentials;
 
-            $class = static::DEFAULT_CLIENT;
-            $this->client = new $class;
-
-        } else {
-
-            $this->client = $client;
-
-        }
+        $this->client = is_null($client) ?
+            new Client() :
+            $client;
 
     }
 
@@ -87,7 +89,7 @@ class LarusClient
 
                 $class_name = $section_value;
 
-                $this->sections[$name] = new $class_name;
+                $this->sections[$name] = new $class_name($this);
 
                 if (!($this->sections[$name] instanceof AbstractSection)) {
                     throw new \LogicException(
@@ -104,5 +106,16 @@ class LarusClient
 
         return $result;
     }
+
+    /**
+     * @see getSection
+     * @param $name
+     * @return AbstractSection
+     */
+    function __get($name)
+    {
+        return $this->getSection($name);
+    }
+
 
 }

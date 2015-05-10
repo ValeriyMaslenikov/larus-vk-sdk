@@ -15,7 +15,7 @@ class StandardCredentials implements CredentialsInterface
     protected $application_id;
     /** @var  string */
     protected $application_secret_key;
-    /** @var  string|NULL */
+    /** @var  string|null */
     protected $access_token;
 
     /**
@@ -27,7 +27,8 @@ class StandardCredentials implements CredentialsInterface
     }
 
     /**
-     * @param int $application_id
+     * @param $application_id
+     * @return $this
      */
     public function setApplicationId($application_id)
     {
@@ -53,7 +54,8 @@ class StandardCredentials implements CredentialsInterface
     }
 
     /**
-     * @param string $application_secret_key
+     * @param $application_secret_key
+     * @return $this
      */
     public function setApplicationSecretKey($application_secret_key)
     {
@@ -76,7 +78,7 @@ class StandardCredentials implements CredentialsInterface
     }
 
     /**
-     * @return NULL|string
+     * @return null|string
      */
     public function getAccessToken()
     {
@@ -84,17 +86,20 @@ class StandardCredentials implements CredentialsInterface
     }
 
     /**
-     * @param NULL|string $access_token
+     * @param null|string $access_token
      * @return $this
      */
     public function setAccessToken($access_token)
     {
+        if (!is_null($access_token)) {
 
-        if (!is_string($access_token) || strlen($access_token) !== self::ACCESS_TOKEN_SIZE) {
+            if (!is_string($access_token) || strlen($access_token) !== self::ACCESS_TOKEN_SIZE) {
 
-            throw new \InvalidArgumentException(
-                "Access token must be string a of " . self::ACCESS_TOKEN_SIZE . " characters"
-            );
+                throw new \InvalidArgumentException(
+                    "Access token must be string a of " . self::ACCESS_TOKEN_SIZE . " characters"
+                );
+
+            }
 
         }
 
@@ -108,5 +113,12 @@ class StandardCredentials implements CredentialsInterface
         return !is_null($this->access_token);
     }
 
-
+    public static function getInstance($application_id, $application_secret_key, $access_token = null)
+    {
+        $instance = new self();
+        $instance
+            ->setApplicationId($application_id)
+            ->setApplicationSecretKey($application_secret_key)
+            ->setAccessToken($access_token);
+    }
 }

@@ -32,8 +32,8 @@ class StandardCredentialsTest extends \PHPUnit_Framework_TestCase
     public function providerInvalidArgumentExceptionSetApplicationId()
     {
         return [
-            [NULL],
-            [FALSE],
+            [null],
+            [false],
             [0],
             [-1],
             ['qwerty'],
@@ -79,11 +79,20 @@ class StandardCredentialsTest extends \PHPUnit_Framework_TestCase
     public function providerInvalidArgumentExceptionSetAccessToken()
     {
         return [
-            [NULL],
-            [FALSE],
+            [false],
             [$this->genRandomString(StandardCredentials::ACCESS_TOKEN_SIZE - 1)],
             [$this->genRandomString(StandardCredentials::ACCESS_TOKEN_SIZE + 1)]
         ];
+    }
+
+    public function testSetAccessTokenNull()
+    {
+        $this->assertSame(
+            $this->standard_credentials_object,
+            $this->standard_credentials_object->setAccessToken(
+                null
+            )
+        );
     }
 
 
@@ -142,8 +151,8 @@ class StandardCredentialsTest extends \PHPUnit_Framework_TestCase
     public function providerInvalidArgumentExceptionSetApplicationSecretKey()
     {
         return [
-            [FALSE],
-            [NULL],
+            [false],
+            [null],
             [$this->genRandomString(StandardCredentials::MIN_SECRET_KEY_LENGTH - 1)],
             [$this->genRandomString(StandardCredentials::MAX_SECRET_KEY_LENGTH + 1)]
         ];

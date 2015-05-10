@@ -39,8 +39,9 @@ abstract class AbstractSection
             $data[FieldCollection::ACCESS_TOKEN_FIELD] = $this->parent->getCredentials()->getAccessToken();
         }
 
+
         return $method->execute(
-            $data,
+            FieldCollection::fromArray($data),
             $this->parent->getClient()
         );
 
@@ -121,19 +122,11 @@ abstract class AbstractSection
 
     }
 
-    public function get(\Traversable $data)
-    {
-        return $this->executeMethod(
-            __METHOD__
-            , $data
-        );
-    }
-
     public function __call($name, $arguments)
     {
         return $this->executeMethod(
             $name,
-            $arguments
+            isset($arguments[0]) ? $arguments[0] : []
         );
     }
 

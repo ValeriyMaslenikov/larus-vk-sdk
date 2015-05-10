@@ -5,7 +5,6 @@ namespace LarusVK\Sections\Methods;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Message\RequestInterface;
 
-
 abstract class AbstractMethod
 {
 
@@ -56,11 +55,14 @@ abstract class AbstractMethod
         ClientInterface $client
     )
     {
+
         $request = $this->prepareRequest($params, $client);
 
         $response = $client->send($request);
 
         $result = $response->json();
+
+        print_r($result);
 
         if (isset($result['error'])) {
             throw new \RuntimeException($result['error']['error_msg'], $result['error']['error_code']);
@@ -86,7 +88,7 @@ abstract class AbstractMethod
 
         $request = $client->createRequest(
             static::REQUEST_TYPE,
-            NULL,
+            null,
             [
                 // TODO WARNING, REMOVE THIS LINE AND FIND ANOTHER WAY
                 'verify' => false

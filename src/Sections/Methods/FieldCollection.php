@@ -53,7 +53,7 @@ final class FieldCollection implements \IteratorAggregate, \ArrayAccess
     public function offsetSet($offset, $value)
     {
 
-        if (in_array($offset, $this->forbidden_fields)) {
+        if (in_array($value, $this->forbidden_fields)) {
             throw new \InvalidArgumentException(
                 "Field `{$offset}` can not be setted, it is reserved"
             );
